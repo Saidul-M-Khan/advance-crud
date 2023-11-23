@@ -9,7 +9,7 @@ app.use(cors())
 app.use('/api/users', UserRoutes)
 
 const getAController = (req: Request, res: Response) => {
-  res.send("Hello World");
+  res.send("Level 2 Assignment 2 - Advance CRUD");
 };
 
 app.get('/', getAController);
