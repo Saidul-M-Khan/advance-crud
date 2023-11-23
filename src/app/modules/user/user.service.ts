@@ -32,11 +32,11 @@ const createUserIntoDB = async (user: User): Promise<User> => {
   })
 
   await newUser.save()
-  
-  const userWithoutPassword = newUser.toJSON();
-  delete userWithoutPassword.password;
 
-  return userWithoutPassword;
+  //   const userWithoutPassword = newUser.toJSON();
+//   delete newUser.password
+
+  return newUser
 }
 
 const getAllUsersFromDB = async (): Promise<User[]> => {
@@ -64,60 +64,62 @@ const getSingleUserFromDB = async (id: string): Promise<User | null> => {
   return result
 }
 
-// const updateUserIntoDB = async (
-//   id: string,
-//   user: User,
-// ): Promise<User | null> => {
-//   const result = await UserModel.findByIdAndUpdate(
-//     { userId: { $eq: id } },
-//     { password: 0 },
-//     user,
-//   )
-//   return result
-// }
-
 const updateUserIntoDB = async (
-    id: string,
-    user: User,
-  ): Promise<User | null> => {
-    const {
-      userId,
-      username,
-      password,
-      fullName,
-      age,
-      email,
-      isActive,
-      hobbies,
-      address,
-    } = user;
-  
-    const hashedPassword = await bcrypt.hash(password, 10);
-  
-    const updatedUser = new UserModel({
-      userId,
-      username,
-      password: hashedPassword,
-      fullName,
-      age,
-      email,
-      isActive,
-      hobbies,
-      address,
-    });
-  
-    const result = await UserModel.findByIdAndUpdate(
-      { userId: { $eq: id } },
-      updatedUser,
-      { select: { password: 0 } },
-    );
-  
-    return result;
-  };
+  id: string,
+  user: User,
+): Promise<User | null> => {
+  const result = await UserModel.findOneAndUpdate(
+    { userId: { $eq: id } },
+    { $set: user },
+    { projection: { password: 0 } },
+  )
+
+  return result
+}
 
 const deleteUserFromDB = async (id: string): Promise<User | null> => {
   const result = await UserModel.findOneAndDelete({ userId: { $eq: id } })
   return result
+}
+
+const addOrderToUserIntoDB = async (
+  id: string,
+  user: User[],
+): Promise<User | null> => {
+  const result = await UserModel.findOneAndUpdate(
+    { userId: { $eq: id } },
+    { $addToSet: user },
+  )
+
+  return result
+}
+
+const getAllOrdersOfUserFromDB = async (id: string): Promise<User[]> => {
+  const result = await UserModel.find(
+    { userId: { $eq: id } },
+    { _id: 0, orders: 1 },
+  )
+  return result
+}
+
+const getTotalPriceOfOrdersFromDB = async (id: string): Promise<number> => {
+  const result = await UserModel.aggregate([
+    {
+      $match: { userId: id },
+    },
+    {
+      $addFields: {
+        totalPrice: { $multiply: ['$price', '$quantity'] },
+      },
+    },
+    {
+      $group: {
+        _id: null,
+        totalPrice: { $sum: '$totalPrice' },
+      },
+    },
+  ])
+  return result[0] ? result[0].totalPrice : 0
 }
 
 export const UserServices = {
@@ -126,4 +128,7 @@ export const UserServices = {
   getSingleUserFromDB,
   updateUserIntoDB,
   deleteUserFromDB,
+  addOrderToUserIntoDB,
+  getAllOrdersOfUserFromDB,
+  getTotalPriceOfOrdersFromDB,
 }
