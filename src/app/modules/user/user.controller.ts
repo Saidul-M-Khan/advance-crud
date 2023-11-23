@@ -1,10 +1,12 @@
 import { Request, Response } from 'express'
 import { UserServices } from './user.service'
 
+
 // Create a new user into the database
 const createUser = async (req: Request, res: Response) => {
   try {
     const { user } = req.body;
+
     const data = await UserServices.createUserIntoDB(user)
     res.status(200).json({
       success: true,
