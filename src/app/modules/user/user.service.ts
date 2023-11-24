@@ -1,5 +1,5 @@
 import bcrypt from 'bcryptjs'
-import { User } from './user.interface'
+import { User, UserWithoutPassword } from './user.interface'
 import { UserModel } from './user.model'
 
 async function userExists(id: string) {
@@ -7,7 +7,7 @@ async function userExists(id: string) {
   return userCount > 0
 }
 
-const createUserIntoDB = async (user: User): Promise<User> => {
+const createUserIntoDB = async (user: User): Promise<UserWithoutPassword> => {
   const {
     userId,
     username,
@@ -37,11 +37,15 @@ const createUserIntoDB = async (user: User): Promise<User> => {
   })
 
   await newUser.save()
-  return newUser
+  // return newUser
+
+  const { password: omitPassword, _id, orders: omitOrders, ...userWithoutPassword } = newUser.toObject();
+
+  return userWithoutPassword as UserWithoutPassword;
 }
 
 const getAllUsersFromDB = async (): Promise<User[]> => {
-  const result = await UserModel.find({}, { userId: 0, orders: 0 })
+  const result = await UserModel.find({}, { _id: 0, userId: 0, password: 0, "fullName._id": 0, "address._id": 0, orders: 0, __v: 0 })
   return result
 }
 
@@ -51,7 +55,7 @@ const getSingleUserFromDB = async (id: string): Promise<User | null> => {
   } else {
     const result = await UserModel.findOne(
       { userId: { $eq: id } },
-      { orders: 0 },
+      { _id: 0, password: 0, "fullName._id": 0, "address._id": 0, orders: 0, __v: 0 },
     )
     return result
   }
@@ -60,14 +64,13 @@ const getSingleUserFromDB = async (id: string): Promise<User | null> => {
 const updateUserIntoDB = async (
   id: string,
   user: User,
-): Promise<User | null> => {
+) => {
   if (!(await userExists(id))) {
     return null
   } else {
     const result = await UserModel.findOneAndUpdate(
-      { userId: { $eq: id } },
-      { $set: user },
-      { orders: 0 },
+      { userId: { $eq: id } }, user,
+      {projection: { "_id": 0, "password": 0, "fullName._id": 0, "address._id": 0, "orders": 0, "__v": 0 }},
     )
     return result
   }

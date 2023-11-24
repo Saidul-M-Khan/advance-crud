@@ -27,3 +27,7 @@ export type User = {
     address: Address;
     orders?: Orders[];
 }
+
+export type UserWithoutPassword = Omit<User, 'password' | '_id' | '__v'> & {
+    orders?: Omit<User['orders'], '_id'>[];
+};

@@ -14,11 +14,11 @@ const FullNameSchema = new Schema<FullName>({
   },
 })
 
-FullNameSchema.options.toJSON = {
-  transform: function (doc, ret, options) {
-    delete ret._id;
-  },
-};
+// FullNameSchema.options.toJSON = {
+//   transform: function (doc, ret, options) {
+//     delete ret._id;
+//   },
+// };
 
 const AddressSchema = new Schema<Address>({
   street: {
@@ -35,11 +35,11 @@ const AddressSchema = new Schema<Address>({
   },
 })
 
-AddressSchema.options.toJSON = {
-  transform: function (doc, ret, options) {
-    delete ret._id;
-  },
-};
+// AddressSchema.options.toJSON = {
+//   transform: function (doc, ret, options) {
+//     delete ret._id;
+//   },
+// };
 
 const OrdersSchema = new Schema<Orders>({
   productName: {
@@ -56,11 +56,11 @@ const OrdersSchema = new Schema<Orders>({
   },
 })
 
-OrdersSchema.options.toJSON = {
-  transform: function (doc, ret, options) {
-    delete ret._id;
-  },
-};
+// OrdersSchema.options.toJSON = {
+//   transform: function (doc, ret, options) {
+//     delete ret._id;
+//   },
+// };
 
 const UserSchema = new Schema<User>({
   userId: {
@@ -107,14 +107,14 @@ const UserSchema = new Schema<User>({
   }
 })
 
-UserSchema.options.toJSON = {
-  transform: function (doc, ret, options) {
-    delete ret.password;
-    // delete ret.orders;
-    delete ret._id;
-    delete ret.__v;
-  },
-};
+// UserSchema.options.toJSON = {
+//   transform: function (doc, ret, options) {
+//     delete ret.password;
+//     // delete ret.orders;
+//     delete ret._id;
+//     delete ret.__v;
+//   },
+// };
 
 
 
