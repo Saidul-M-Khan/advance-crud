@@ -36,7 +36,7 @@ const createUser = async (req: Request, res: Response) => {
       message: 'Something went wrong',
       error: {
         code: 500,
-        description: 'Failed to Create User!'
+        description: 'Failed to Create User!',
       },
     })
   }
