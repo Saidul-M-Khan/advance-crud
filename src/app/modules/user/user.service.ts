@@ -64,14 +64,13 @@ const deleteUserFromDB = async (id: string): Promise<User | null> => {
 
 const addOrderToUserIntoDB = async (
   id: string,
-  user: User[],
+  order: User[],
 ): Promise<User | null> => {
-  const result = await UserModel.aggregate([
-    {
-      $match: { userId: { $eq: id } }
-    },
-    { $group: {_id: "$user"} },
-  ])
+  const result = UserModel.findOneAndUpdate(
+    { userId:  id },
+    {$push: {orders: order}},
+    {new: true},
+  )
 
   return result
 }

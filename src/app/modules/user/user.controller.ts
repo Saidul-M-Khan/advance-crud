@@ -7,9 +7,9 @@ const createUser = async (req: Request, res: Response) => {
   try {
     const { user } = req.body
 
-    const { error } = UserCreateValidationSchema.validate(user)
+    const { error, value } = UserCreateValidationSchema.validate(user)
 
-    const result = await UserServices.createUserIntoDB(user)
+    const result = await UserServices.createUserIntoDB(value)
 
     if (error) {
       return res.status(500).json({
@@ -90,9 +90,9 @@ const updateUser = async (req: Request, res: Response) => {
     const { userId } = req.params
     const { user } = req.body
 
-    const { error } = UserUpdateValidationSchema.validate(user)
+    const { error, value } = UserUpdateValidationSchema.validate(user)
 
-    const result = await UserServices.updateUserIntoDB(userId, user)
+    const result = await UserServices.updateUserIntoDB(userId, value)
 
     if (error) {
       return res.status(500).json({
@@ -150,11 +150,11 @@ const addOrderToUser = async (req: Request, res: Response) => {
   try {
     const { userId } = req.params
     const { orders } = req.body
-    const data = await UserServices.addOrderToUserIntoDB(userId, orders)
+    await UserServices.addOrderToUserIntoDB(userId, orders)
     res.status(200).json({
       success: true,
       message: 'Order created successfully!',
-      data: data,
+      data: null,
     })
   } catch (error) {
     console.log(error)
