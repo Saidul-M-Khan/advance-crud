@@ -14,6 +14,12 @@ const FullNameSchema = new Schema<FullName>({
   },
 })
 
+FullNameSchema.options.toJSON = {
+  transform: function (doc, ret, options) {
+    delete ret._id;
+  },
+};
+
 const AddressSchema = new Schema<Address>({
   street: {
     type: String,
@@ -29,6 +35,12 @@ const AddressSchema = new Schema<Address>({
   },
 })
 
+AddressSchema.options.toJSON = {
+  transform: function (doc, ret, options) {
+    delete ret._id;
+  },
+};
+
 const OrdersSchema = new Schema<Orders>({
   productName: {
     type: String,
@@ -43,6 +55,12 @@ const OrdersSchema = new Schema<Orders>({
     required: true,
   },
 })
+
+OrdersSchema.options.toJSON = {
+  transform: function (doc, ret, options) {
+    delete ret._id;
+  },
+};
 
 const UserSchema = new Schema<User>({
   userId: {
@@ -89,4 +107,14 @@ const UserSchema = new Schema<User>({
   }
 })
 
+UserSchema.options.toJSON = {
+  transform: function (doc, ret, options) {
+    delete ret.password;
+    // delete ret.orders;
+    delete ret._id;
+    delete ret.__v;
+  },
+};
+
 export const UserModel = model<User>('User', UserSchema)
+// export const OrderModel = model<Orders>('Order', OrdersSchema)
