@@ -1,6 +1,9 @@
 import { Request, Response } from 'express'
 import { UserServices } from './user.service'
-import {UserCreateValidationSchema, UserUpdateValidationSchema} from './user.validate'
+import {
+  UserCreateValidationSchema,
+  UserUpdateValidationSchema,
+} from './user.validate'
 
 // Create a new user into the database
 const createUser = async (req: Request, res: Response) => {
@@ -67,11 +70,20 @@ const getSingleUser = async (req: Request, res: Response) => {
     const { userId } = req.params
 
     const data = await UserServices.getSingleUserFromDB(userId)
-    res.status(200).json({
-      success: true,
-      message: 'Student is fetched successfully',
-      data: data,
-    })
+
+    if (data !== null) {
+      res.status(200).json({
+        success: true,
+        message: 'User is fetched successfully',
+        data: data,
+      })
+    } else {
+      res.status(200).json({
+        success: false,
+        message: 'User not found',
+        data: data,
+      })
+    }
   } catch (error) {
     res.status(500).json({
       success: false,
@@ -92,7 +104,7 @@ const updateUser = async (req: Request, res: Response) => {
 
     const { error, value } = UserUpdateValidationSchema.validate(user)
 
-    const result = await UserServices.updateUserIntoDB(userId, value)
+    const data = await UserServices.updateUserIntoDB(userId, value)
 
     if (error) {
       return res.status(500).json({
@@ -105,11 +117,19 @@ const updateUser = async (req: Request, res: Response) => {
       })
     }
 
-    res.status(200).json({
-      success: true,
-      message: 'User updated successfully!',
-      data: result,
-    })
+    if (data !== null) {
+      res.status(200).json({
+        success: true,
+        message: 'User updated successfully!',
+        data: data,
+      })
+    } else {
+      res.status(200).json({
+        success: false,
+        message: 'User not found',
+        data: data,
+      })
+    }
   } catch (error) {
     res.status(500).json({
       success: false,
@@ -117,7 +137,7 @@ const updateUser = async (req: Request, res: Response) => {
       error: {
         code: 500,
         description: 'Failed to Update User!',
-        error: error
+        error: error,
       },
     })
   }
@@ -127,12 +147,21 @@ const updateUser = async (req: Request, res: Response) => {
 const deleteUser = async (req: Request, res: Response) => {
   try {
     const { userId } = req.params
-    await UserServices.deleteUserFromDB(userId)
-    res.status(200).json({
-      success: true,
-      message: 'User deleted successfully!',
-      data: null,
-    })
+    const data = await UserServices.deleteUserFromDB(userId)
+
+    if (data !== null) {
+      res.status(200).json({
+        success: true,
+        message: 'User deleted successfully!',
+        data: null,
+      })
+    } else {
+      res.status(200).json({
+        success: false,
+        message: 'User not found',
+        data: null,
+      })
+    }
   } catch (error) {
     res.status(500).json({
       success: false,
@@ -150,12 +179,21 @@ const addOrderToUser = async (req: Request, res: Response) => {
   try {
     const { userId } = req.params
     const { orders } = req.body
-    await UserServices.addOrderToUserIntoDB(userId, orders)
-    res.status(200).json({
-      success: true,
-      message: 'Order created successfully!',
-      data: null,
-    })
+    const data = await UserServices.addOrderToUserIntoDB(userId, orders)
+
+    if (data !== null) {
+      res.status(200).json({
+        success: true,
+        message: 'Order created successfully!',
+        data: null,
+      })
+    } else {
+      res.status(200).json({
+        success: false,
+        message: 'User not found',
+        data: null,
+      })
+    }
   } catch (error) {
     console.log(error)
     res.status(500).json({
@@ -175,11 +213,19 @@ const getAllOrdersOfUser = async (req: Request, res: Response) => {
   try {
     const data = await UserServices.getAllOrdersOfUserFromDB(userId)
 
-    res.status(200).json({
-      success: true,
-      message: 'Orders fetched successfully!',
-      data: data,
-    })
+    if (data !== null) {
+      res.status(200).json({
+        success: true,
+        message: 'Orders fetched successfully!',
+        data: data,
+      })
+    } else {
+      res.status(200).json({
+        success: false,
+        message: 'User not found',
+        data: data,
+      })
+    }
   } catch (error) {
     res.status(500).json({
       success: false,
@@ -193,27 +239,29 @@ const getAllOrdersOfUser = async (req: Request, res: Response) => {
 }
 
 // Show all order of a user
-const getTotalPriceOfOrders = async (req: Request, res: Response) => {
-  const { userId } = req.params
-  try {
-    const data = await UserServices.getTotalPriceOfOrdersFromDB(userId)
+// const getTotalPriceOfOrders = async (req: Request, res: Response) => {
+//   const { userId } = req.params
+//   try {
+//     const totalPrice = await UserServices.getTotalPriceOfOrdersFromDB(userId)
 
-    res.status(200).json({
-      success: true,
-      message: 'Total price calculated successfully!',
-      totalPrice: data,
-    })
-  } catch (error) {
-    res.status(500).json({
-      success: false,
-      message: 'Something went wrong',
-      error: {
-        code: 500,
-        description: 'Failed to Calculate Total Price of Orders!',
-      },
-    })
-  }
-}
+//     res.status(200).json({
+//       success: true,
+//       message: 'Total price calculated successfully!',
+//       data: {
+//         totalPrice: totalPrice.toFixed(2),
+//       },
+//     })
+//   } catch (error) {
+//     res.status(500).json({
+//       success: false,
+//       message: 'Something went wrong',
+//       error: {
+//         code: 500,
+//         description: 'Failed to Calculate Total Price of Orders!',
+//       },
+//     })
+//   }
+// }
 
 export const userController = {
   createUser,
@@ -223,5 +271,5 @@ export const userController = {
   deleteUser,
   addOrderToUser,
   getAllOrdersOfUser,
-  getTotalPriceOfOrders,
+  // getTotalPriceOfOrders,
 }

@@ -2,6 +2,11 @@ import bcrypt from 'bcryptjs'
 import { User } from './user.interface'
 import { UserModel } from './user.model'
 
+async function userExists(id: string) {
+  const userCount = await UserModel.countDocuments({ userId: { $eq: id } })
+  return userCount > 0
+}
+
 const createUserIntoDB = async (user: User): Promise<User> => {
   const {
     userId,
@@ -36,56 +41,75 @@ const createUserIntoDB = async (user: User): Promise<User> => {
 }
 
 const getAllUsersFromDB = async (): Promise<User[]> => {
-  const result = await UserModel.find({}, { userId: 0, orders:0 })
+  const result = await UserModel.find({}, { userId: 0, orders: 0 })
   return result
 }
 
 const getSingleUserFromDB = async (id: string): Promise<User | null> => {
-  const result = await UserModel.findOne({ userId: { $eq: id } }, {orders: 0})
-  return result
+  if (!(await userExists(id))) {
+    return null
+  } else {
+    const result = await UserModel.findOne(
+      { userId: { $eq: id } },
+      { orders: 0 },
+    )
+    return result
+  }
 }
 
 const updateUserIntoDB = async (
   id: string,
   user: User,
 ): Promise<User | null> => {
-  const result = await UserModel.findOneAndUpdate(
-    { userId: { $eq: id } },
-    { $set: user },
-    {orders: 0}
-  )
-  return result
+  if (!(await userExists(id))) {
+    return null
+  } else {
+    const result = await UserModel.findOneAndUpdate(
+      { userId: { $eq: id } },
+      { $set: user },
+      { orders: 0 },
+    )
+    return result
+  }
 }
 
 const deleteUserFromDB = async (id: string): Promise<User | null> => {
-  const result = await UserModel.findOneAndDelete({ userId: { $eq: id } })
-  return result
+  if (!(await userExists(id))) {
+    return null
+  } else {
+    const result = await UserModel.findOneAndDelete({ userId: { $eq: id } })
+    return result
+  }
 }
 
 const addOrderToUserIntoDB = async (
   id: string,
   order: User[],
 ): Promise<User | null> => {
-  const result = UserModel.findOneAndUpdate(
-    { userId:  id },
-    {$push: {orders: order}},
-    {new: true},
-  )
-
-  return result
+  if (!(await userExists(id))) {
+    return null
+  } else {
+    const result = UserModel.findOneAndUpdate(
+      { userId: id },
+      { $push: { orders: order } },
+      { new: true },
+    )
+    return result
+  }
 }
 
-const getAllOrdersOfUserFromDB = async (id: string): Promise<User[]> => {
-  const result = await UserModel.find(
-    { userId: { $eq: id } },
-    {orders: 1}
-  )
-  return result
+const getAllOrdersOfUserFromDB = async (id: string): Promise<User[] | null> => {
+  if (!(await userExists(id))) {
+    return null
+  } else {
+    const result = await UserModel.find({ userId: { $eq: id } }, { orders: 1 })
+    return result
+  }
 }
 
-const getTotalPriceOfOrdersFromDB = async (id: string) => {
-  // Will code later
-}
+// const getTotalPriceOfOrdersFromDB = async (id: string) => {
+//   // Will do at last
+// }
 
 export const UserServices = {
   createUserIntoDB,
@@ -95,5 +119,5 @@ export const UserServices = {
   deleteUserFromDB,
   addOrderToUserIntoDB,
   getAllOrdersOfUserFromDB,
-  getTotalPriceOfOrdersFromDB,
+  // getTotalPriceOfOrdersFromDB,
 }
