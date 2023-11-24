@@ -105,7 +105,7 @@ const getAllOrdersOfUserFromDB = async (id: string): Promise<User[] | null> => {
   if (!(await userExists(id))) {
     return null
   } else {
-    const result = await UserModel.find({ userId: { $eq: id } }, { orders: 1 })
+    const result = await UserModel.find({ userId: { $eq: id } }, { _id: 0, orders: 1 })
     return result
   }
 }
