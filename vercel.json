@@ -11,5 +11,8 @@
         "src": "/(.*)",
         "dest": "dist/server.js"
       }
-    ]
+    ],
+    "projectSettings": {
+      "framework": "node"
+    }
   }
