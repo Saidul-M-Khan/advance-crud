@@ -4,7 +4,7 @@
 
 ##
 
-**API URL:** https://advance-crud-level2-assignment2.vercel.app
+**API URL:** https://advance-crud.vercel.app
 
 ##
 
@@ -34,7 +34,7 @@
 ##### Get All User:
 
 - Endpoint: **POST /api/users**
-- Request: **POST https://advance-crud-level2-assignment2.vercel.app/api/users**
+- Request: **POST https://advance-crud.vercel.app/api/users**
 - Request Body:
 
 ```json
@@ -104,7 +104,7 @@
 ### 2. Retrieve a list of all users
 
 - Endpoint: **GET /api/users**
-- Request: **GET https://advance-crud-level2-assignment2.vercel.app/api/users**
+- Request: **GET https://advance-crud.vercel.app/api/users**
 - Response: List of user objects. Each object only contain `username`, `fullName`, `age`, `email`, `address` .
 
 ```json
@@ -137,7 +137,7 @@
 
 - Endpoint: **GET /api/users/:userId**
 
-- Request: **GET https://advance-crud-level2-assignment2.vercel.app/api/users/1**
+- Request: **GET https://advance-crud.vercel.app/api/users/1**
 
 - Response: With this endpoint we can fetch specific user object by providing user id in url. The password field is not included in the response data.
 
@@ -165,7 +165,7 @@
 }
 ```
 
-- Invalid Request: **PUT https://advance-crud-level2-assignment2.vercel.app/api/users/100**
+- Invalid Request: **PUT https://advance-crud.vercel.app/api/users/100**
 - Error Response:
 
 ```json
@@ -180,7 +180,7 @@
 
 - Endpoint: **PUT /api/users/:userId**
 
-- Request: **PUT https://advance-crud-level2-assignment2.vercel.app/api/users/1**
+- Request: **PUT https://advance-crud.vercel.app/api/users/1**
 - Request Body:
 
 ```json
@@ -215,7 +215,7 @@
 }
 ```
 
-- Invalid Request: **PUT https://advance-crud-level2-assignment2.vercel.app/api/users/100**
+- Invalid Request: **PUT https://advance-crud.vercel.app/api/users/100**
 - Error Response:
 
 ```json
@@ -229,7 +229,7 @@
 ### 5. Delete a user
 
 - Endpoint: **DELETE /api/users/:userId**
-- Request: **DELETE https://advance-crud-level2-assignment2.vercel.app/api/users/1**
+- Request: **DELETE https://advance-crud.vercel.app/api/users/1**
 
 - Response: This endpoint used to delete any existing user from the list.
 
@@ -241,7 +241,7 @@
 }
 ```
 
-- Invalid Request: **DELETE https://advance-crud-level2-assignment2.vercel.app/api/users/100**
+- Invalid Request: **DELETE https://advance-crud.vercel.app/api/users/100**
 - Error Response:
 
 ```json
@@ -258,7 +258,7 @@
 
 - Endpoint: **PUT /api/users/:userId/orders**
 
-- Request: **PUT https://advance-crud-level2-assignment2.vercel.app/api/users/5/orders**
+- Request: **PUT https://advance-crud.vercel.app/api/users/5/orders**
 - Request Body:
 
 ```json
@@ -283,7 +283,7 @@
 }
 ```
 
-- Invalid Request: **PUT https://advance-crud-level2-assignment2.vercel.app/api/users/100/orders**
+- Invalid Request: **PUT https://advance-crud.vercel.app/api/users/100/orders**
 - Error Response:
 
 ```json
@@ -297,7 +297,7 @@
 ### 2. Retrieve all orders for a specific user
 
 - Endpoint: **GET /api/users/:userId/orders**
-- Request: **GET https://advance-crud-level2-assignment2.vercel.app/api/users/5/orders**
+- Request: **GET https://advance-crud.vercel.app/api/users/5/orders**
 - Response:
 
 ```json
@@ -327,7 +327,7 @@
 
 - This endpoint will give us the list of order objects for the specified user.
 
-- Invalid Request: **GET https://advance-crud-level2-assignment2.vercel.app/api/users/5/orders**
+- Invalid Request: **GET https://advance-crud.vercel.app/api/users/5/orders**
 - Error Response:
 
 ```json
