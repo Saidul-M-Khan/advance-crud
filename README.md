@@ -101,6 +101,58 @@
 }
 ```
 
+- Invalid request with wrong firstName format:
+
+```json
+{
+    "user": {
+        "userId": 198313011,
+        "username": "khan1sr3ait11dul",
+        "password": "khatf1n11323",
+        "fullName": {
+            "firstName": "SaidulSaidulSaidulSaidulSaidulSaidulSaidulSaidulSaidulSaidulSaidul",
+            "lastName": "Smith"
+        },
+        "age": 32,
+        "email": "khan.s1a3id1ul1@gmail.com",
+        "isActive": true,
+        "hobbies": [
+            "photography",
+            "cooking"
+        ],
+        "address": {
+            "street": "456 Oak Ave",
+            "city": "Bigtown",
+            "country": "USA"
+        },
+        "orders": [
+            {
+                "productName": "Product 13",
+                "price": 10.99,
+                "quantity": 3
+            },
+            {
+                "productName": "Product 14",
+                "price": 25.50,
+                "quantity": 1
+            }
+        ]
+    }
+}
+```
+- Error Response:
+
+```json
+{
+    "success": false,
+    "message": "Something went wrong!",
+    "error": {
+        "code": 500,
+        "description": "First name cannot be more than 20 characters"
+    }
+}
+```
+
 ### 2. Retrieve a list of all users
 
 - Endpoint: **GET /api/users**
@@ -172,7 +224,10 @@
 {
   "success": false,
   "message": "User not found",
-  "data": null
+  "error": {
+    "code": 404,
+    "description": "User not found!"
+  }
 }
 ```
 
@@ -222,7 +277,30 @@
 {
   "success": false,
   "message": "User not found",
-  "data": null
+  "error": {
+    "code": 404,
+    "description": "User not found!"
+  }
+}
+```
+
+- Invalid request with wrong email format:
+
+```json
+{
+  "user": { "email": "khansaabgmail.com" }
+}
+```
+- Error Response:
+
+```json
+{
+    "success": false,
+    "message": "Something went wrong!",
+    "error": {
+        "code": 500,
+        "description": "Email must be in a valid format"
+    }
 }
 ```
 
@@ -248,13 +326,16 @@
 {
   "success": false,
   "message": "User not found",
-  "data": null
+  "error": {
+    "code": 404,
+    "description": "User not found!"
+  }
 }
 ```
 
 ## Order Management:
 
-1. Add New Product in Order
+### 1. Add New Product in Order
 
 - Endpoint: **PUT /api/users/:userId/orders**
 
@@ -268,6 +349,7 @@
     "price": 65.99,
     "quantity": 9
   }
+  // more objects...
 }
 ```
 
@@ -290,7 +372,10 @@
 {
   "success": false,
   "message": "User not found",
-  "data": null
+  "error": {
+    "code": 404,
+    "description": "User not found!"
+  }
 }
 ```
 
@@ -327,13 +412,16 @@
 
 - This endpoint will give us the list of order objects for the specified user.
 
-- Invalid Request: **GET https://advance-crud.vercel.app/api/users/5/orders**
+- Invalid Request: **GET https://advance-crud.vercel.app/api/users/500/orders**
 - Error Response:
 
 ```json
 {
   "success": false,
   "message": "User not found",
-  "data": null
+  "error": {
+    "code": 404,
+    "description": "User not found!"
+  }
 }
 ```
