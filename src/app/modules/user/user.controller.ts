@@ -77,10 +77,13 @@ const getSingleUser = async (req: Request, res: Response) => {
         data: data,
       })
     } else {
-      res.status(200).json({
+      res.status(404).json({
         success: false,
         message: 'User not found',
-        data: data,
+        error: {
+          code: 404,
+          description: 'User not found!',
+        },
       })
     }
   } catch (error) {
@@ -123,10 +126,13 @@ const updateUser = async (req: Request, res: Response) => {
         data: data,
       })
     } else {
-      res.status(200).json({
+      res.status(404).json({
         success: false,
         message: 'User not found',
-        data: data,
+        error: {
+          code: 404,
+          description: 'User not found!',
+        },
       })
     }
   } catch (error) {
@@ -155,10 +161,13 @@ const deleteUser = async (req: Request, res: Response) => {
         data: null,
       })
     } else {
-      res.status(200).json({
+      res.status(404).json({
         success: false,
         message: 'User not found',
-        data: null,
+        error: {
+          code: 404,
+          description: 'User not found!',
+        },
       })
     }
   } catch (error) {
@@ -187,10 +196,13 @@ const addOrderToUser = async (req: Request, res: Response) => {
         data: null,
       })
     } else {
-      res.status(200).json({
+      res.status(404).json({
         success: false,
         message: 'User not found',
-        data: null,
+        error: {
+          code: 404,
+          description: 'User not found!',
+        },
       })
     }
   } catch (error) {
@@ -219,10 +231,13 @@ const getAllOrdersOfUser = async (req: Request, res: Response) => {
         data: data,
       })
     } else {
-      res.status(200).json({
+      res.status(404).json({
         success: false,
         message: 'User not found',
-        data: data,
+        error: {
+          code: 404,
+          description: 'User not found!',
+        },
       })
     }
   } catch (error) {
