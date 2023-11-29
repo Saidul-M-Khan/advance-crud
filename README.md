@@ -39,7 +39,6 @@
 
 ```json
 {
-  "user": {
     "userId": 11111,
     "username": "5i111",
     "password": "1c3161s",
@@ -68,7 +67,6 @@
         "quantity": 1
       }
     ]
-  }
 }
 ```
 
@@ -105,7 +103,6 @@
 
 ```json
 {
-    "user": {
         "userId": 198313011,
         "username": "khan1sr3ait11dul",
         "password": "khatf1n11323",
@@ -137,7 +134,6 @@
                 "quantity": 1
             }
         ]
-    }
 }
 ```
 - Error Response:
@@ -172,8 +168,6 @@
       },
       "age": 30,
       "email": "saidul@gmail.com",
-      "isActive": true,
-      "hobbies": ["reading", "traveling"],
       "address": {
         "street": "123 Main St",
         "city": "Anytown",

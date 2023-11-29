@@ -62,6 +62,9 @@ const getAllUsersFromDB = async (): Promise<User[]> => {
       'address._id': 0,
       orders: 0,
       __v: 0,
+      isActive: 0,
+      hobbies: 0,
+      id: 0
     },
   )
   return result

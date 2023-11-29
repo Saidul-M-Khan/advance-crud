@@ -87,16 +87,11 @@ const UserSchema = new Schema<User>({
   orders: {
     type: [OrdersSchema],
   },
-},
-{
-  toJSON: {
-    virtuals: true,
-  },
 })
 
 export const UserModel = model<User>('User', UserSchema)
 
 // virtual
-// UserSchema.virtual('totalPrice').get(function () {
-//   return this.orders[0].price + this.orders.quantity;
+// studentSchema.virtual('fullName').get(function () {
+//   return this.name.firstName + this.name.middleName + this.name.lastName;
 // });
