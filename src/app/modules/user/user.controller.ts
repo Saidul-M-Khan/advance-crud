@@ -8,7 +8,7 @@ import {
 // Create a new user into the database
 const createUser = async (req: Request, res: Response) => {
   try {
-    const { user } = req.body
+    const user  = req.body
 
     const { error, value } = UserCreateValidationSchema.validate(user)
 
@@ -186,8 +186,9 @@ const deleteUser = async (req: Request, res: Response) => {
 const addOrderToUser = async (req: Request, res: Response) => {
   try {
     const { userId } = req.params
-    const { orders } = req.body
+    const orders = req.body
     const data = await UserServices.addOrderToUserIntoDB(userId, orders)
+    console.log(data);
 
     if (data !== null) {
       res.status(200).json({
@@ -223,12 +224,13 @@ const getAllOrdersOfUser = async (req: Request, res: Response) => {
   const { userId } = req.params
   try {
     const data = await UserServices.getAllOrdersOfUserFromDB(userId)
+    console.log(data);
 
     if (data !== null) {
       res.status(200).json({
         success: true,
         message: 'Orders fetched successfully!',
-        data: data,
+        data:data[0]
       })
     } else {
       res.status(404).json({

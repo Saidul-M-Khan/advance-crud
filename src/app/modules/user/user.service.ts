@@ -1,5 +1,5 @@
 import bcrypt from 'bcryptjs'
-import { User, UserWithoutPassword } from './user.interface'
+import { Orders, User, UserWithoutPassword } from './user.interface'
 import { UserModel } from './user.model'
 
 // This function checks if the user exists in the database or not
@@ -129,7 +129,7 @@ const deleteUserFromDB = async (id: string): Promise<User | null> => {
 // service to add order to a specific user by id
 const addOrderToUserIntoDB = async (
   id: string,
-  order: User[],
+  order: User,
 ): Promise<User | null> => {
   if (!(await userExists(id))) {
     // validating if the user exists or not
@@ -154,6 +154,7 @@ const getAllOrdersOfUserFromDB = async (id: string): Promise<User[] | null> => {
       { userId: { $eq: id } },
       { _id: 0, orders: 1 },
     )
+    console.log(result);
     return result
   }
 }
