@@ -165,6 +165,10 @@ const getAllOrdersOfUserFromDB = async (id: string): Promise<User[] | null> => {
 // service to get total order price from specific user by id
 // const getTotalPriceOfOrdersFromDB = async (id: string) => {
 //   // Will do at last
+//   const user = await UserModel.findOne({ userId:id })
+//   const totalOrderCost = user.totalOrderCost;
+//   // console.log(totalOrderCost);
+//   return totalOrderCost;
 // }
 
 export const UserServices = {

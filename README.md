@@ -39,34 +39,34 @@
 
 ```json
 {
-    "userId": 11111,
-    "username": "5i111",
-    "password": "1c3161s",
-    "fullName": {
-      "firstName": "Jmesh",
-      "lastName": "Smith"
+  "userId": 11111,
+  "username": "5i111",
+  "password": "1c3161s",
+  "fullName": {
+    "firstName": "Jmesh",
+    "lastName": "Smith"
+  },
+  "age": 32,
+  "email": "1111@gi.com",
+  "isActive": true,
+  "hobbies": ["photography", "cooking"],
+  "address": {
+    "street": "456 Oak Ave",
+    "city": "Bigtown",
+    "country": "USA"
+  },
+  "orders": [
+    {
+      "productName": "Product 13",
+      "price": 10.99,
+      "quantity": 3
     },
-    "age": 32,
-    "email": "1111@gi.com",
-    "isActive": true,
-    "hobbies": ["photography", "cooking"],
-    "address": {
-      "street": "456 Oak Ave",
-      "city": "Bigtown",
-      "country": "USA"
-    },
-    "orders": [
-      {
-        "productName": "Product 13",
-        "price": 10.99,
-        "quantity": 3
-      },
-      {
-        "productName": "Product 14",
-        "price": 25.5,
-        "quantity": 1
-      }
-    ]
+    {
+      "productName": "Product 14",
+      "price": 25.5,
+      "quantity": 1
+    }
+  ]
 }
 ```
 
@@ -103,49 +103,47 @@
 
 ```json
 {
-        "userId": 198313011,
-        "username": "khan1sr3ait11dul",
-        "password": "khatf1n11323",
-        "fullName": {
-            "firstName": "SaidulSaidulSaidulSaidulSaidulSaidulSaidulSaidulSaidulSaidulSaidul",
-            "lastName": "Smith"
-        },
-        "age": 32,
-        "email": "khan.s1a3id1ul1@gmail.com",
-        "isActive": true,
-        "hobbies": [
-            "photography",
-            "cooking"
-        ],
-        "address": {
-            "street": "456 Oak Ave",
-            "city": "Bigtown",
-            "country": "USA"
-        },
-        "orders": [
-            {
-                "productName": "Product 13",
-                "price": 10.99,
-                "quantity": 3
-            },
-            {
-                "productName": "Product 14",
-                "price": 25.50,
-                "quantity": 1
-            }
-        ]
+  "userId": 198313011,
+  "username": "khan1sr3ait11dul",
+  "password": "khatf1n11323",
+  "fullName": {
+    "firstName": "SaidulSaidulSaidulSaidulSaidulSaidulSaidulSaidulSaidulSaidulSaidul",
+    "lastName": "Smith"
+  },
+  "age": 32,
+  "email": "khan.s1a3id1ul1@gmail.com",
+  "isActive": true,
+  "hobbies": ["photography", "cooking"],
+  "address": {
+    "street": "456 Oak Ave",
+    "city": "Bigtown",
+    "country": "USA"
+  },
+  "orders": [
+    {
+      "productName": "Product 13",
+      "price": 10.99,
+      "quantity": 3
+    },
+    {
+      "productName": "Product 14",
+      "price": 25.5,
+      "quantity": 1
+    }
+  ]
 }
 ```
+
 - Error Response:
 
 ```json
 {
-    "success": false,
-    "message": "Something went wrong!",
-    "error": {
-        "code": 500,
-        "description": "First name cannot be more than 20 characters"
-    }
+  "success": false,
+  "message": "Something went wrong!",
+  "error": {
+    "code": 500,
+    "description": "First name cannot be more than 20 characters"
+  }
 }
 ```
 
@@ -285,16 +283,17 @@
   "user": { "email": "khansaabgmail.com" }
 }
 ```
+
 - Error Response:
 
 ```json
 {
-    "success": false,
-    "message": "Something went wrong!",
-    "error": {
-        "code": 500,
-        "description": "Email must be in a valid format"
-    }
+  "success": false,
+  "message": "Something went wrong!",
+  "error": {
+    "code": 500,
+    "description": "Email must be in a valid format"
+  }
 }
 ```
 
@@ -338,12 +337,9 @@
 
 ```json
 {
-  "orders": {
-    "productName": "Product 15",
-    "price": 65.99,
-    "quantity": 9
-  }
-  // more objects...
+  "productName": "Product 15",
+  "price": 65.99,
+  "quantity": 9
 }
 ```
 
@@ -383,24 +379,22 @@
 {
   "success": true,
   "message": "Orders fetched successfully!",
-  "data": [
-    {
-      "orders": [
-        {
-          "productName": "Product 10",
-          "price": 39.99,
-          "quantity": 3,
-          "_id": "65608dd1752b7ea635b62fc9"
-        },
-        {
-          "productName": "Product 15",
-          "price": 65.99,
-          "quantity": 9,
-          "_id": "65611d7571fc12d5d6b4e3d0"
-        }
-      ]
-    }
-  ]
+  "data": {
+    "orders": [
+      {
+        "productName": "Product 10",
+        "price": 39.99,
+        "quantity": 3,
+        "_id": "65608dd1752b7ea635b62fc9"
+      },
+      {
+        "productName": "Product 15",
+        "price": 65.99,
+        "quantity": 9,
+        "_id": "65611d7571fc12d5d6b4e3d0"
+      }
+    ]
+  }
 }
 ```
 

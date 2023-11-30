@@ -16,6 +16,7 @@ export type Orders = {
 }
 
 export type User = {
+  totalOrderCost: number
   userId: number
   username: string
   password: string

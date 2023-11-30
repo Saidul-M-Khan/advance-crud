@@ -89,9 +89,14 @@ const UserSchema = new Schema<User>({
   },
 })
 
-export const UserModel = model<User>('User', UserSchema)
 
 // virtual
-// studentSchema.virtual('fullName').get(function () {
-//   return this.name.firstName + this.name.middleName + this.name.lastName;
-// });
+// UserSchema.virtual('totalOrderCost').get(function() {
+//   if (this.orders && this.orders.length > 0) {
+//     return this.orders.reduce((totalCost, order) => totalCost + order.price * order.quantity, 0);
+//   } else {
+//     return null;
+//   }
+// })
+
+export const UserModel = model<User>('User', UserSchema)
